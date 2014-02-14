@@ -469,6 +469,8 @@ static int __init alsa_sound_init(void)
 #ifndef MODULE
 	printk(KERN_INFO "Advanced Linux Sound Architecture Driver Initialized.\n");
 #endif
+    // testing printk
+    printk(KERN_INFO "Hello world! alsa_sound_init()\n");
 	return 0;
 }
 

@@ -46,6 +46,7 @@ static unsigned int pidhash_shift = 4;
 struct pid init_struct_pid = INIT_STRUCT_PID;
 
 int pid_max = PID_MAX_DEFAULT;
+int limit = 0; // limit printk() test output
 
 #define RESERVED_PIDS		300
 
@@ -217,6 +218,12 @@ int next_pidmap(struct pid_namespace *pid_ns, unsigned int last)
 
 	if (last >= PID_MAX_LIMIT)
 		return -1;
+
+    /* check pid_max; print only once*/
+    if (limit < 1) {
+        printk(KERN_INFO "pid_max: %d\n", pid_max);
+        limit++;
+    }
 
 	offset = (last + 1) & BITS_PER_PAGE_MASK;
 	map = &pid_ns->pidmap[(last + 1)/BITS_PER_PAGE];
